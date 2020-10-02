@@ -439,7 +439,7 @@ RatioFromTo <- From/To #чем > , тем AA сильнее loser
 GorL <- matrix(c(From, To, RatioFromTo), nrow = 20, 
                dimnames = list(c('Gly', 'Ala', 'Val', 'Ile', 'Leu', 'Pro', 'Ser', 'Thr', 'Cys', 
                                  'Met', 'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 
-                                 'Tyr', 'Trp'), c('From', 'To', 'RatioFromTo')))
+                                 'Tyr', 'Trp'), c('AA', 'From', 'To', 'RatioFromTo')))
 
 GorL = data.frame(GorL)
 GorL = GorL[order(GorL$RatioFromTo),]
