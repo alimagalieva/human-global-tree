@@ -9,14 +9,6 @@ aa <- data.frame(data$ancestral_aa, data$derived_aa) #упрощённая та�
 aa_count <- table(as.character(interaction(aa))) 
 aa_count
 
-#library(dplyr)  #альтернативный вариант подсчёта пар, раньше не работала, f теперь
-#вызывается библиотека:
-#aa %>% group_by(data$ancestral_aa, data$derived_aa) %>%
-#sum <- summarize(Count = n())
-
-#library(qdap)  #альтернативный вариант подсчёта пар, почему-то не вызывается библиотека
-#table(paste2(aa))
-
 m <- matrix(nrow = 20, ncol = 20)   #по горизонтали ancestral_aa, по вертикали - derived_aa
 rownames(m) <- c('Gly', 'Ala', 'Val', 'Ile', 'Leu', 'Pro', 'Ser', 'Thr', 'Cys', 'Met', 
                  'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 'Tyr', 'Trp')
