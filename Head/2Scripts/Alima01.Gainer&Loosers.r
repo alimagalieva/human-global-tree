@@ -3,17 +3,16 @@ rm(list=ls(all=TRUE))
 #indata <- read.csv("/home/alima/arrr/fulltreeCodons.csv", header = TRUE, sep = ";") #читаю файл 
 indata = read.csv("../../Body/2Derived/fulltreeCodons.csv", header = TRUE, sep = ";")
 
-data <- subset(indata, synonymous == "non-synonymous" & derived_aa != "Ambiguous")  #убираю лишнее
+data <- subset(indata, synonymous == "non-synonymous" & derived_aa != "Ambiguous"& gene_info != "mRNA_ND6")  #убираю лишнее
 
-aa <- data.frame(data$ancestral_aa, data$derived_aa) #упрощённая таблица для подсчёта пар aa
-aa_count <- table(as.character(interaction(aa))) 
+aa_count <- table(as.character(interaction(data$ancestral_aa, data$derived_aa))) 
 aa_count
 
 m <- matrix(nrow = 20, ncol = 20)   #по горизонтали ancestral_aa, по вертикали - derived_aa
 rownames(m) <- c('Gly', 'Ala', 'Val', 'Ile', 'Leu', 'Pro', 'Ser', 'Thr', 'Cys', 'Met', 
-                 'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 'Tyr', 'Trp')
+                 'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 'Tyr', 'Trp', 'Stop')
 colnames(m) <- c('Gly', 'Ala', 'Val', 'Ile', 'Leu', 'Pro', 'Ser', 'Thr', 'Cys', 'Met', 
-                 'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 'Tyr', 'Trp')
+                 'Asp', 'Asn', 'Glu', 'Gln', 'Lys', 'Arg', 'His', 'Phe', 'Tyr', 'Trp', 'Stop')
 #кажется мне, что это тоже можно было сделать проще, но да ладно 
 
 m['Gly', 'Ala'] <- aa_count['Gly.Ala']  #костылии
@@ -416,6 +415,48 @@ m['Trp', 'Arg'] <- aa_count['Trp.Arg']
 m['Trp', 'His'] <- aa_count['Trp.His']
 m['Trp', 'Phe'] <- aa_count['Trp.Phe']
 m['Trp', 'Tyr'] <- aa_count['Trp.Tyr']
+
+m['Gly', 'Stop'] <- aa_count['Gly.Stop']
+m['Ala', 'Stop'] <- aa_count['Ala.Stop']
+m['Val', 'Stop'] <- aa_count['Val.Stop']
+m['Ile', 'Stop'] <- aa_count['Ile.Stop']
+m['Leu', 'Stop'] <- aa_count['Leu.Stop']
+m['Pro', 'Stop'] <- aa_count['Pro.Stop']
+m['Ser', 'Stop'] <- aa_count['Ser.Stop']
+m['Thr', 'Stop'] <- aa_count['Thr.Stop']
+m['Cys', 'Stop'] <- aa_count['Cys.Stop']
+m['Gly', 'Stop'] <- aa_count['Gly.Stop']
+m['Asp', 'Stop'] <- aa_count['Asp.Stop']
+m['Asn', 'Stop'] <- aa_count['Asn.Stop']
+m['Glu', 'Stop'] <- aa_count['Glu.Stop']
+m['Gln', 'Stop'] <- aa_count['Gln.Stop']
+m['Lys', 'Stop'] <- aa_count['Lys.Stop']
+m['Arg', 'Stop'] <- aa_count['Arg.Stop']
+m['His', 'Stop'] <- aa_count['His.Stop']
+m['Phe', 'Stop'] <- aa_count['Phe.Stop']
+m['Tyr', 'Stop'] <- aa_count['Tyr.Stop']
+m['Trp', 'Stop'] <- aa_count['Trp.Stop'] 
+
+m['Stop', 'Gly'] <- aa_count['Stop.Gly']
+m['Stop', 'Ala'] <- aa_count['Stop.Ala']
+m['Stop', 'Val'] <- aa_count['Stop.Val']
+m['Stop', 'Ile'] <- aa_count['Stop.Ile']
+m['Stop', 'Leu'] <- aa_count['Stop.Leu']
+m['Stop', 'Pro'] <- aa_count['Stop.Pro']
+m['Stop', 'Ser'] <- aa_count['Stop.Ser']
+m['Stop', 'Thr'] <- aa_count['Stop.Thr']
+m['Stop', 'Cys'] <- aa_count['Stop.Cys']
+m['Stop', 'Asn'] <- aa_count['Stop.Asn']
+m['Stop', 'Asp'] <- aa_count['Stop.Asp']
+m['Stop', 'Asn'] <- aa_count['Stop.Asn']
+m['Stop', 'Glu'] <- aa_count['Stop.Glu']
+m['Stop', 'Gln'] <- aa_count['Stop.Gln']
+m['Stop', 'Lys'] <- aa_count['Stop.Lys']
+m['Stop', 'Arg'] <- aa_count['Stop.Arg']
+m['Stop', 'His'] <- aa_count['Stop.His']
+m['Stop', 'Phe'] <- aa_count['Stop.Phe']
+m['Stop', 'Tyr'] <- aa_count['Stop.Tyr']
+m['Stop', 'Trp'] <- aa_count['Stop.Trp']
 
 m[is.na(m)] <- 0  #NA to 0
 
